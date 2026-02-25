@@ -1,0 +1,41 @@
+import discord
+from discord.ext import commands
+import random
+
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='?', intents=intents)
+
+reciclagens = {
+    "plástico":"Lave as embalagens para remover restos de comida ou líquidos, que podem inviabilizar a reciclagem.",
+    "papel":"Mantenha-os secos e, se possível, sem amassados excessivos (embora papel amassado ainda seja reciclável, papel picado perde valor por quebrar as fibras).",
+    "vidro":"Lave bem e retire as tampas (que geralmente são de metal ou plástico). Se estiver quebrado, embrulhe em jornal ou coloque dentro de uma caixa de papelão/garrafa PET cortada para proteger os coletores.",
+    "metal":" Latas de alumínio e aço devem ser lavadas. No caso de latas de conserva, dobre a serrilha para dentro para evitar acidentes.",
+}
+
+dica = [
+     "Recuse o plástico, evite descartáveis usando sua própria garrafa, canudo de metal e sacolas reutilizáveis (ecobags).",
+    "Antes de descartar, tente consertar objetos ou reaproveitar materiais.",
+    "Apague luzes ao sair, aproveite a iluminação natural e tire aparelhos da tomada quando não usados para ter eficiência energética",
+    " Foque em comprar apenas o necessário, valorizando a durabilidade e qualidade dos produtos.",
+]
+
+@bot.command()
+async def hub(ctx):
+    await ctx.send("Olá, eu sou seu bot de reciclagem e dicas sustentáveis.\n escreva '?dicas' para receber uma dica sustentável aleatória.\n escreva '?plástico ou ?papel ou ?vidro ou ?metal' para saber como reciclar cada material.")
+
+@bot.command()
+async def reciclar(ctx, item):
+    await ctx.send(dica[item])
+
+
+
+
+@bot.command()
+async def dicas(ctx):
+    d = random.choice(dica)
+    await ctx.send(dicas)
+
+bot.run('token')
